@@ -54,7 +54,7 @@ public class SkillController : MonoBehaviour
                         Instantiate(sword, Position, Quaternion.Euler(Vector3.forward * Degree));
                         Instantiate(sword, new Vector2(Position.x - 0.1f, Position.y - 0.1f), Quaternion.Euler(Vector3.forward * Degree));
                     }
-                    Debug.Log(System.DateTime.Now);
+                    
                 }
                 // Sword ----------------
                 

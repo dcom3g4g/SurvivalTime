@@ -6,21 +6,18 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    private static int HP;
+    private static int HP=100;
     private static int Dame;
     private static int Speed;
     private static int Amor;
     private static int Exp;
     private static int Level;
-    public Slider healbar; 
+    private static int ExpMax=500;
+    public Slider healbar;
+    public Slider Expbar; 
     public Player()
     {
-        HP = 100;
-        Dame = 10;
-        Speed = 10;
-        Amor = 10;
-        Exp = 0; 
-        Level = 0;
+      
         
     }
     public int HP1 { get => HP; set => HP = value; }
@@ -40,5 +37,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         healbar.value = HP; 
+        Expbar.maxValue = ExpMax;
+        Expbar.value = Exp;
     }
 }

@@ -33,10 +33,7 @@ public class PlayerMove : MonoBehaviour
             rigidbody.velocity = new Vector2(0, 1 * 1f);
         else
             rigidbody.velocity = new Vector2(joystick.Horizontal * 4f, joystick.Vertical * 4f);
-        //pl.HP1 = 70;
-        //Debug.Log("AA" + pl.HP1);
-        Debug.Log("hori"+GetJoyStickHorizontal());
-        Debug.Log("veri" +GetJoyStickVertical());
+        
     }
     public float GetJoyStickHorizontal()
     {

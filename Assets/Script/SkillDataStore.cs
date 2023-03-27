@@ -22,13 +22,13 @@ public class SkillDataStore
         sword.Speed1 = new int[] { 10, 10, 8, 8, 8 };
         sword.Des1 = new string[] {"Summon a sword to attack the enermy","Increase atk of sword",
             "Extra summon 1 sword to attack enermy ","Increase attack speed of sword","Increase atk of sword and sword can pass over 1 enermy" }; 
-        sword.Level1 = 0;
+        sword.Level1 = 1;
         Data[0] = sword ;
         SkillData icenet = new SkillData();
         icenet.Name1 = "IceNet"; 
         icenet.Dame1 = new int[] { 10, 10, 10, 15, 100 };
         icenet.Speed1 = new int[] { 2, 2, 3, 3, 5 };
-        icenet.Level1 = 0;
+        icenet.Level1 = 1;
         icenet.Des1 = new string[] { "Summon a Icenet are to slow down enermy speed and cause a little dame to enermy",
                                      "Increase the area of Icenet",
                                      "Increase slow of Icenet",
@@ -41,7 +41,7 @@ public class SkillDataStore
         earththorn.Name1 = "EarthThorns"; 
         earththorn.Dame1 = new int[] { 20, 20, 30, 30, 40 };
         earththorn.Speed1 = new int[] { 20, 20, 20, 30, 30 };
-        earththorn.Level1 = 0;
+        earththorn.Level1 = 1;
         earththorn.Des1 = new string[] { "Summon EarthThorn area to attack enermy when enermy move on it ",
                                          "Extra summon 1 EarthThorn to attack enermy",
                                          "Increase dame of EarthThorn ",

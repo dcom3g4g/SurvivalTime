@@ -23,7 +23,7 @@ public class Zombie : Enemy
         Hp = 100; 
         Speed = 10;
         Level = 1;
-        Dame = 5;
+        Dame = 10;
         
         Is_Stop = false;
     }
@@ -44,18 +44,7 @@ public class Zombie : Enemy
     }
     void OnTriggerEnter2D(Collider2D collisionData)
     {
-        if (collisionData.gameObject.tag == "Player")
-        {
-            Debug.Log("va cham");
-            if (rigibody.position.x >= player.GetPositionOfPlayer().x)
-                rigibody.velocity = new Vector2(-1 * 1f, 0);
-            else if (rigibody.position.x < player.GetPositionOfPlayer().x)
-                rigibody.velocity = new Vector2(1 * 1f, 0);
-            else if (rigibody.position.y >= player.GetPositionOfPlayer().y)
-                rigibody.velocity = new Vector2(0, -1 * 1f);
-            else if (rigibody.position.y < player.GetPositionOfPlayer().y)
-                rigibody.velocity = new Vector2(0, 1 * 1f);
-        }
+        
     }
 private void OnDestroy()
     {

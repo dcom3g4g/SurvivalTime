@@ -14,7 +14,6 @@ public class Sword : Skill
         Level = skilldata.getSkillByName("Sword").Level1;
         Dame = skilldata.getSkillByName("Sword").Dame1[Level];
         Speed = skilldata.getSkillByName("Sword").Speed1[Level];
-        skilldata.getSkillByName("Sword").Level1 = 2;
         Debug.Log(skilldata.getSkillByName("Sword").Level1); 
         Is_Stop = false;
         
@@ -27,15 +26,7 @@ public class Sword : Skill
         //float x=0, y=0;
        rigibody.velocity = new Vector2(player.GetTruePosition().x*6,player.GetTruePosition().y*6);
     }
-    void OnTriggerEnter2D(Collider2D collisionData)
-    {
-        // If a GameObject has an "Enemy" tag, remove him.
-        if (collisionData.gameObject.tag == "Enemy")
-        {
-            //Debug.Log (collisionData.gameObject.ToString());
-            
-        }
-    }
+    
     // Update is called once per frame
     void Update()
     {

@@ -6,6 +6,7 @@ public class Exp : MonoBehaviour
 {
     // Start is called before the first frame update
     PlayerMove player;
+    Player pl=new Player(); 
     void Start()
     {
         
@@ -25,6 +26,7 @@ public class Exp : MonoBehaviour
         // If a GameObject has an "Enemy" tag, remove him.
         if (collisionData.gameObject.tag == "Player")
         {
+            pl.Exp1 += 50; 
             Destroy(gameObject); 
             
 

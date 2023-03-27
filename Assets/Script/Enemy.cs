@@ -16,8 +16,8 @@ public class Enemy : MonoBehaviour
     protected static SkillController SkillController=new SkillController();
     private float time = 0;
     private int timeAll = 0;
-    PlayerMove player; 
-
+    PlayerMove player;
+    Player pl=new Player(); 
     public bool Is_Slow { get => is_Slow; set => is_Slow = value; }
 
     void Start()
@@ -79,29 +79,32 @@ public class Enemy : MonoBehaviour
     // Update is called once per n 
     void Update()
     {
-        
+        rigibody.velocity = Vector2.zero;
     }
-    
-    void OnTriggerEnter2D(Collider2D collisionData)
+
+    private void OnCollisionEnter2D(Collision2D collisionData)
     {
-        // If a GameObject has an "Enemy" tag, remove him.
         if (collisionData.gameObject.tag == "Skill")
         {
             if (collisionData.gameObject.name.ToString().Contains("Sword"))
             {
                 this.Hp -= SkillController.GetDameOfSkillByName(collisionData.gameObject.name.ToString());
                 Destroy(collisionData.gameObject);
-
+                
                 if (this.Hp <= 0)
                 {
                     SetIsDie(true);
-                    
+
                     Destroy(gameObject);
                 }
             }
-            
+
         }
-        
+        if (collisionData.gameObject.tag == "Player")
+        {
+            pl.HP1 -= 10;
+            Debug.Log(pl.HP1);
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -109,22 +112,22 @@ public class Enemy : MonoBehaviour
         {
             if (!this.is_Slow)
             {
-                this.Speed = this.Speed * 1 / 10;
-                this.Is_Slow = true; 
+                this.Speed = this.Speed * 3 / 10;
+                this.Is_Slow = true;
             }
         }
         time += Time.deltaTime;
         if (time >= 0.1f)
         {
-            
-            timeAll += 1; 
+
+            timeAll += 1;
             if (collision.gameObject.name.ToString().Contains("EarthThorn"))
             {
-                
-                if (timeAll% (SkillController.GetSpeedOfSkillByName(collision.gameObject.name.ToString())/2)==0)
+
+                if (timeAll % (SkillController.GetSpeedOfSkillByName(collision.gameObject.name.ToString()) / 2) == 0)
                 {
                     this.Hp -= SkillController.GetDameOfSkillByName(collision.gameObject.name.ToString());
-                   
+
                     if (this.Hp <= 0)
                     {
                         SetIsDie(true);
@@ -140,9 +143,11 @@ public class Enemy : MonoBehaviour
         {
             if (this.is_Slow)
             {
-                this.Speed = this.Speed * 10 / 1;
+                this.Speed = this.Speed * 10 / 3;
                 this.Is_Slow = false;
             }
         }
     }
+
+    
 }
