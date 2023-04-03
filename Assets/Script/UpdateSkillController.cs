@@ -8,68 +8,84 @@ public class UpdateSkillController : MonoBehaviour
     // Start is called before the first frame update
     public Text skilldes1,skilldes2,skilldes3;
     public Sprite Sword, EarthThorn, IceNet;
-    public Image SkillUpdate1, SkillUpdate2, SkillUpdate3; 
+    public Image[] SkillUpdate; 
+    
+    public Button Selectskill, Selectskill1, Selectskill2;
     SkillDataStore skilldata = SkillDataStore.GetInstance();
-    SkillData skill3, skill2, skill1; 
+    SkillData[] skill; 
     void Start()
     {
         List<string> list = skilldata.GetSkillAvailble();
-
-        skill1 = skilldata.getSkillByName(list[Random.Range(0, list.Count)]);
-        skill2 = skilldata.getSkillByName(list[Random.Range(0, list.Count)]);
-        skill3 = skilldata.getSkillByName(list[Random.Range(0, list.Count)]);
-        string[] listskill = new string[] { skill1.Name1,skill2.Name1,skill3.Name1 };
-        
-        if (skill1.Name1.Contains("Sword"))
+        skill = new SkillData[3];
+        skill[0] = skilldata.getSkillByName(list[Random.Range(0, list.Count)]);
+        skill[1] = skilldata.getSkillByName(list[Random.Range(0, list.Count)]);
+        skill[2] = skilldata.getSkillByName(list[Random.Range(0, list.Count)]);
+        string[] listskill = new string[] { skill[0].Name1, skill[1].Name1, skill[2].Name1 };
+        for (int i=0;i<3;i++)
         {
-            SkillUpdate1.sprite = Sword;
-            
+            if (skill[i].Name1.Contains("Sword"))
+            {
+                SkillUpdate[i].sprite = Sword; 
+            }
+            if (skill[i].Name1.Contains("EarthThorns"))
+            {
+                SkillUpdate[i].sprite = EarthThorn;
+            }
+            if (skill[i].Name1.Contains("IceNet"))
+            {
+                SkillUpdate[i].sprite = IceNet;
+            }
         }
-        if (skill2.Name1.Contains("Sword"))
-        {
-            SkillUpdate2.sprite = Sword;
-        }
-        if (skill3.Name1.Contains("Sword"))
-        {
-            SkillUpdate3.sprite = Sword;
-        }
-
-        if (skill1.Name1.Contains("EarthThorns"))
-        {
-            SkillUpdate1.sprite = EarthThorn;
-        }
-        if (skill2.Name1.Contains("EarthThorns"))
-        {
-            SkillUpdate2.sprite = EarthThorn;
-        }
-        if (skill3.Name1.Contains("EarthThorns"))
-        {
-            SkillUpdate3.sprite = EarthThorn;
-        }
-
-        if (skill1.Name1.Contains("IceNet"))
-        {
-            SkillUpdate1.sprite = IceNet;
-        }
-        if (skill2.Name1.Contains("IceNet"))
-        {
-            SkillUpdate2.sprite = IceNet;
-        }
-        if (skill3.Name1.Contains("IceNet"))
-        {
-            SkillUpdate3.sprite = IceNet;
-        }
-        skilldes1.text = skill1.Des1[skill1.Level1 + 1];
-        skilldes2.text = skill2.Des1[skill2.Level1 + 1];
-        skilldes3.text = skill3.Des1[skill3.Level1 + 1];
-        //img2.sprite = (Sprite)Resources.Load("Assets/Sprite/Earththorns.png");
-        //img3.sprite = (Sprite)Resources.Load("Assets/Sprite/Earththorns.png");
+        Enemy enemy = new Enemy();
+        Skill skil = new Skill();
+        Player player = new Player();
+        enemy.SetIsStop(true);
+        skil.SetIsStop(true);
+        player.Is_Stop1 = true; 
+        skilldes1.text = skill[0].Des1[skill[0].Level1 + 1];
+        skilldes2.text = skill[1].Des1[skill[1].Level1 + 1];
+        skilldes3.text = skill[2].Des1[skill[2].Level1 + 1];
+        Selectskill.onClick.AddListener(delegate () { this.UpdateSkill(skill[0].Name1); });
+        Selectskill1.onClick.AddListener(delegate () { this.UpdateSkill(skill[1].Name1); });
+        Selectskill2.onClick.AddListener(delegate () { this.UpdateSkill(skill[2].Name1); });
 
     }
+    private void OnEnable()
+    {
+        SetStopAll();
+    }
+    
+    public void SetStopAll()
 
+    {
+        Enemy enemy = new Enemy();
+        Skill skil = new Skill();
+        Player player = new Player();
+        enemy.SetIsStop(true);
+        skil.SetIsStop(true);
+        player.Is_Stop1 = true;
+    }
+    void UpdateSkill(string name)
+    {
+        Enemy enemy = new Enemy();
+        Skill skil = new Skill();
+        Player player = new Player();
+        enemy.SetIsStop(false);
+        skil.SetIsStop(false);
+        player.Is_Stop1 = false;
+        Debug.Log(name + skilldata.getSkillByName(name).Level1);
+        skilldata.getSkillByName(name).Level1 += 1;
+        Debug.Log(name + skilldata.getSkillByName(name).Level1);
+        gameObject.SetActive(false); 
+        
+    }
     // Update is called once per frame
     void Update()
     {
         
+    }
+    void Check()
+    {
+
     }
 }

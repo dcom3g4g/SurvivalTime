@@ -10,10 +10,11 @@ public class SkillController : MonoBehaviour
     private float time =0 ;
     private int timeAll = 0; 
     public GameObject sword ;
-    public GameObject EarthThorn; 
+    public GameObject EarthThorn;
+    Sword sw =new Sword();
     PlayerMove player;
-    Sword sw = new Sword();
-    EarthThorns et = new EarthThorns(); 
+    
+    EarthThorns et= new EarthThorns() ; 
     void Start()
     {
         Weapon = new int[10];
@@ -23,55 +24,68 @@ public class SkillController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       time+=Time.deltaTime;
-        if (time >= 0.1f)
+        
+        sw = new Sword();
+        et = new EarthThorns();
+        if (!sw.IsStop())
         {
-            Vector2 Position = new Vector2(player.GetPositionOfPlayer().x, player.GetPositionOfPlayer().y);
-            timeAll += 1; 
-            if (timeAll%sw.GetSpeed()==0)
+            time += Time.deltaTime;
+            if (time >= 0.1f)
             {
-                
-                float Degree = (Mathf.Acos(player.GetTruePosition().y) * 180 / Mathf.PI);
-                // Sword ---------------
-                if (sw.GetLevel() == 1)
+                Vector2 Position = new Vector2(player.GetPositionOfPlayer().x, player.GetPositionOfPlayer().y);
+                timeAll += 1;
+                if (timeAll % sw.GetSpeed() == 0)
                 {
-                    if (player.GetPositionOfPlayer().x < player.GetClosestEnemyPosition().x)
-                        Instantiate(sword, Position, Quaternion.Euler(-Vector3.forward * Degree));
-                    else
-                        Instantiate(sword, Position, Quaternion.Euler(Vector3.forward * Degree));
-                }
-                
-                else if ( sw.GetLevel()==3)
-                {
-                    
-                    if (player.GetPositionOfPlayer().x < player.GetClosestEnemyPosition().x)
-                    {
-                        Instantiate(sword, Position, Quaternion.Euler(-Vector3.forward * Degree));
-                        Instantiate(sword, new Vector2(Position.x-0.1f,Position.y - 0.1f), Quaternion.Euler(-Vector3.forward * Degree));
-                    }
-                    else
-                    {
-                        Instantiate(sword, Position, Quaternion.Euler(Vector3.forward * Degree));
-                        Instantiate(sword, new Vector2(Position.x - 0.1f, Position.y - 0.1f), Quaternion.Euler(Vector3.forward * Degree));
-                    }
-                    
-                }
-                // Sword ----------------
-                
-                
-            }
-            //---------------------------------------------------
-            // EarthThorn -----------
-            if (timeAll % et.GetSpeed() == 0)
-            {
 
-                if (et.GetLevel() == 1)
-                {
-                    int x = 0, y = 0;
-                    Instantiate(EarthThorn, player.GetClosestEnemyPosition(), Quaternion.identity);
+                    float Degree = (Mathf.Acos(player.GetTruePosition().y) * 180 / Mathf.PI);
+                    // Sword ---------------
+                    if (sw.GetLevel() >= 1)
+                    {
+                        if (player.GetPositionOfPlayer().x < player.GetClosestEnemyPosition().x)
+                            Instantiate(sword, Position, Quaternion.Euler(-Vector3.forward * Degree));
+                        else
+                            Instantiate(sword, Position, Quaternion.Euler(Vector3.forward * Degree));
+                    }
+
+                    if (sw.GetLevel() >= 2)
+                    {
+
+                        if (player.GetPositionOfPlayer().x < player.GetClosestEnemyPosition().x)
+                        {
+                            
+                            Instantiate(sword, new Vector2(Position.x - 0.1f, Position.y - 0.1f), Quaternion.Euler(-Vector3.forward * Degree));
+                        }
+                        else
+                        {
+                            Instantiate(sword, Position, Quaternion.Euler(Vector3.forward * Degree));
+                            Instantiate(sword, new Vector2(Position.x - 0.1f, Position.y - 0.1f), Quaternion.Euler(Vector3.forward * Degree));
+                        }
+
+                    }
+                    
+                    // Sword ----------------
+
+
                 }
+                //---------------------------------------------------
+                // EarthThorn -----------
+                if (timeAll % et.GetSpeed() == 0)
+                {
+
+                    if (et.GetLevel() >= 1)
+                    {
+                        int x = 0, y = 0;
+                        Instantiate(EarthThorn, player.GetClosestEnemyPosition(), Quaternion.identity);
+                    }
+                    if (et.GetLevel() >= 2)
+                    {
+                        Instantiate(EarthThorn, player.GetSecondClosestEnemyPosition(player.GetClosestEnemyPosition()), Quaternion.identity);
+                        Debug.Log("cls" + player.GetSecondClosestEnemyPosition(player.GetClosestEnemyPosition()));
+                        Debug.Log("cls1" + player.GetClosestEnemyPosition());
+                    }
+                }
+                time = 0f;
             }
-            time = 0f;
         }
     }
     public int GetDameOfSkillByName(string x)

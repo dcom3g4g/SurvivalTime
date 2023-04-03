@@ -22,7 +22,7 @@ public class SkillDataStore
         sword.Speed1 = new int[] { 10, 10, 8, 8, 8 };
         sword.Des1 = new string[] {"Summon a sword to attack the enermy","Increase atk of sword",
             "Extra summon 1 sword to attack enermy ","Increase attack speed of sword","Increase atk of sword and sword can pass over 1 enermy" }; 
-        sword.Level1 = 1;
+        sword.Level1 = 0;
         Data[0] = sword ;
         SkillData icenet = new SkillData();
         icenet.Name1 = "IceNet"; 

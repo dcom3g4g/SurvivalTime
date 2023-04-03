@@ -24,8 +24,7 @@ public class Zombie : Enemy
         Speed = 10;
         Level = 1;
         Dame = 10;
-        
-        Is_Stop = false;
+       
     }
    
     void Start()
@@ -39,7 +38,8 @@ public class Zombie : Enemy
     {
         //rigibody.velocity = new Vector2(-player.GetPositionOfPlayer().x/transform.position.x*5,- player.GetPositionOfPlayer().y / transform.position.y*5);
         Position = transform.position; 
-        transform.position = Vector3.MoveTowards(transform.position, player.GetPositionOfPlayer(), (float)Speed/10000f);
+        if (!Is_Stop)
+            transform.position = Vector3.MoveTowards(transform.position, player.GetPositionOfPlayer(), (float)Speed/10000f);
 
     }
     void OnTriggerEnter2D(Collider2D collisionData)

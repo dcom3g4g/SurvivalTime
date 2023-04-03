@@ -13,13 +13,19 @@ public class Player : MonoBehaviour
     private static int Exp;
     private static int Level;
     private static int ExpMax=500;
+    private static bool Is_Stop=true; 
     public Slider healbar;
-    public Slider Expbar; 
+    public Slider Expbar;
+    public GameObject UpdateBoard; 
+    
     public Player()
+
     {
       
         
     }
+
+    public bool Is_Stop1 { get => Is_Stop; set => Is_Stop = value; }
     public int HP1 { get => HP; set => HP = value; }
     public int Dame1 { get => Dame; set => Dame = value; }
     public int Speed1 { get => Speed; set => Speed = value; }
@@ -39,5 +45,12 @@ public class Player : MonoBehaviour
         healbar.value = HP; 
         Expbar.maxValue = ExpMax;
         Expbar.value = Exp;
+        if (Exp>=ExpMax)
+        {
+            Exp = Exp - ExpMax; 
+            Level+=1;
+            UpdateBoard.SetActive(true); 
+            Debug.Log("Level ne "+Level);
+        }
     }
 }

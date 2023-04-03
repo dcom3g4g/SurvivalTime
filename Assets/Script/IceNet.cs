@@ -12,7 +12,6 @@ public class IceNet : Skill
         Dame = skilldata.getSkillByName("IceNet").Dame1[Level];
         Speed = skilldata.getSkillByName("IceNet").Speed1[Level];
         
-        Is_Stop = false;
 
     }
     void Start()

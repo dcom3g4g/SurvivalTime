@@ -23,16 +23,23 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rigidbody.position.x >= 24.0)
-            rigidbody.velocity = new Vector2(-1 * 1f, 0);
-        else if (rigidbody.position.x <= -27.4)
-            rigidbody.velocity = new Vector2(1 * 1f, 0);
-        else if (rigidbody.position.y >= 16.6)
-            rigidbody.velocity = new Vector2(0, -1 * 1f);
-        else if (rigidbody.position.y <= -13.9)
-            rigidbody.velocity = new Vector2(0, 1 * 1f);
+        if (!pl.Is_Stop1)
+        {
+            if (rigidbody.position.x >= 24.0)
+                rigidbody.velocity = new Vector2(-1 * 1f, 0);
+            else if (rigidbody.position.x <= -27.4)
+                rigidbody.velocity = new Vector2(1 * 1f, 0);
+            else if (rigidbody.position.y >= 16.6)
+                rigidbody.velocity = new Vector2(0, -1 * 1f);
+            else if (rigidbody.position.y <= -13.9)
+                rigidbody.velocity = new Vector2(0, 1 * 1f);
+            else
+                rigidbody.velocity = new Vector2(joystick.Horizontal * 4f, joystick.Vertical * 4f);
+        }
         else
-            rigidbody.velocity = new Vector2(joystick.Horizontal * 4f, joystick.Vertical * 4f);
+        {
+            rigidbody.velocity = Vector2.zero;
+        }
         
     }
     public float GetJoyStickHorizontal()
@@ -53,9 +60,11 @@ public class PlayerMove : MonoBehaviour
     }
     public Vector3 GetClosestEnemyPosition()
     {
+        List<Vector3> result= new List<Vector3>(); 
         GameObject[] gos;
         gos = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
+        GameObject closest1 = null;
         float distance = Mathf.Infinity;
         Vector3 position = transform.position;
         foreach (GameObject go in gos)
@@ -64,10 +73,35 @@ public class PlayerMove : MonoBehaviour
             float curDistance = diff.sqrMagnitude;
             if (curDistance < distance)
             {
+                closest1 = closest; 
                 closest = go;
                 distance = curDistance;
             }
         }
+        
+        return closest.transform.position;
+    }
+    public Vector3 GetSecondClosestEnemyPosition(Vector3 pos)
+    {
+        List<Vector3> result = new List<Vector3>();
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        GameObject closest1 = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = pos;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance && curDistance!=0)
+            {
+                closest1 = closest;
+                closest = go;
+                distance = curDistance;
+            }
+        }
+
         return closest.transform.position;
     }
     public GameObject GetClosestEnemy()

@@ -15,7 +15,6 @@ public class EarthThorns : Skill
         Dame = skilldata.getSkillByName("EarthThorns").Dame1[Level];
         Speed = skilldata.getSkillByName("EarthThorns").Speed1[Level];
         
-        Is_Stop = false;
 
     }
     void Start()

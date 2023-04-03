@@ -15,7 +15,7 @@ public class Sword : Skill
         Dame = skilldata.getSkillByName("Sword").Dame1[Level];
         Speed = skilldata.getSkillByName("Sword").Speed1[Level];
         Debug.Log(skilldata.getSkillByName("Sword").Level1); 
-        Is_Stop = false;
+        
         
     }
     void Start()
